@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+     
+  <ItemGroup>
+  <PackageReference Include="Cybtans.AspNetCore.Migrations" Version="1.2.16" />
+  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+  <PackageReference Include="Cybtans.Entities.EntityFrameworkCore" Version="1.2.16" />
+  </ItemGroup>  
+
+  <ItemGroup>
+  	<ProjectReference Include="../Service.Domain/Service.Domain.csproj" />
+  </ItemGroup>  
+
+</Project>

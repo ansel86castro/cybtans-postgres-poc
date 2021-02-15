@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+ # Infraestructure
+  db:
+    image: postgres
+    container_name: postgress
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+    ports:
+      - 5432:5432
+ 
+ # Services
+  service.restapi:
+    image: ${DOCKER_REGISTRY-}servicerestapi
+    build:
+      context: .
+      dockerfile: Service/Service.RestApi/Dockerfile

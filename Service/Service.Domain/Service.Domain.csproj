@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+     
+  <ItemGroup>
+  <PackageReference Include="Cybtans.Entities" Version="1.2.16" />
+  <PackageReference Include="Cybtans.Entities.Proto" Version="1.2.1" />
+  </ItemGroup>  
+
+    
+
+</Project>

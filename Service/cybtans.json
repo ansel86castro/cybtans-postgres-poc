@@ -1,0 +1,26 @@
+{
+    "Service": "Service",
+  "Steps": [
+    {
+      "Type": "messages",
+      "Output": ".",
+      "ProtoFile": "./Proto/Domain.proto",
+      "AssemblyFile": "./Service.RestApi/bin/Debug/netcoreapp3.1/Service.Domain.dll"
+    },
+    {
+      "Type": "proto",
+      "Output": ".",
+      "ProtoFile": "./Proto/Service.proto",
+      "Clients": [
+        {
+          "Output": "../react-app/src/services",
+          "Framework": "react"
+        },
+        {
+          "Output": "../angular-app/src/app/services",
+          "Framework": "angular"
+        }
+      ]
+    }
+  ]
+}

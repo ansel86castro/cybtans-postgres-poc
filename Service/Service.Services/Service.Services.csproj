@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+     
+  <ItemGroup>
+  <PackageReference Include="Cybtans.Entities" Version="1.2.16" />
+  <PackageReference Include="Cybtans.Services" Version="1.2.16" />
+  <PackageReference Include="Cybtans.Messaging" Version="1.2.16" />
+  <PackageReference Include="Cybtans.Entities.EventLog" Version="1.2.16" />
+  <PackageReference Include="AutoMapper" Version="10.0.0" />
+  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
+  <PackageReference Include="FluentValidation" Version="9.2.0" />
+  </ItemGroup>  
+
+  <ItemGroup>
+  	<ProjectReference Include="../Service.Models/Service.Models.csproj" />
+  	<ProjectReference Include="../Service.Domain/Service.Domain.csproj" />
+  	<ProjectReference Include="../Service.Domain.EntityFramework/Service.Domain.EntityFramework.csproj" />
+  </ItemGroup>  
+
+</Project>
