@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Service.Models
 {
-	public partial class GetAllOrderStateResponse : IReflectorMetadataProvider
+	public partial class GetAllUserResponse : IReflectorMetadataProvider
 	{
-		private static readonly GetAllOrderStateResponseAccesor __accesor = new GetAllOrderStateResponseAccesor();
+		private static readonly GetAllUserResponseAccesor __accesor = new GetAllUserResponseAccesor();
 		
-		public List<OrderStateDto> Items {get; set;}
+		public List<UserDto> Items {get; set;}
 		
 		public long Page {get; set;}
 		
@@ -23,7 +23,7 @@ namespace Service.Models
 	}
 	
 	
-	public sealed class GetAllOrderStateResponseAccesor : IReflectorMetadata
+	public sealed class GetAllUserResponseAccesor : IReflectorMetadata
 	{
 		public const int Items = 1;
 		public const int Page = 2;
@@ -66,7 +66,7 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		        Items => typeof(List<OrderStateDto>),
+		        Items => typeof(List<UserDto>),
 		        Page => typeof(long),
 		        TotalPages => typeof(long),
 		        TotalCount => typeof(long),
@@ -77,7 +77,7 @@ namespace Service.Models
 		       
 		public object GetValue(object target, int propertyCode)
 		{
-		    GetAllOrderStateResponse obj = (GetAllOrderStateResponse)target;
+		    GetAllUserResponse obj = (GetAllUserResponse)target;
 		    return propertyCode switch
 		    {
 		        Items => obj.Items,
@@ -91,10 +91,10 @@ namespace Service.Models
 		
 		public void SetValue(object target, int propertyCode, object value)
 		{
-		    GetAllOrderStateResponse obj = (GetAllOrderStateResponse)target;
+		    GetAllUserResponse obj = (GetAllUserResponse)target;
 		    switch (propertyCode)
 		    {
-		        case Items:  obj.Items = (List<OrderStateDto>)value;break;
+		        case Items:  obj.Items = (List<UserDto>)value;break;
 		        case Page:  obj.Page = (long)value;break;
 		        case TotalPages:  obj.TotalPages = (long)value;break;
 		        case TotalCount:  obj.TotalCount = (long)value;break;

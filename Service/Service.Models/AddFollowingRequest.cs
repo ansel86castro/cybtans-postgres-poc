@@ -3,30 +3,28 @@ using Cybtans.Serialization;
 
 namespace Service.Models
 {
-	public partial class DeleteCustomerRequest : IReflectorMetadataProvider
+	public partial class AddFollowingRequest : IReflectorMetadataProvider
 	{
-		private static readonly DeleteCustomerRequestAccesor __accesor = new DeleteCustomerRequestAccesor();
+		private static readonly AddFollowingRequestAccesor __accesor = new AddFollowingRequestAccesor();
 		
-		public Guid Id {get; set;}
+		public int Id {get; set;}
+		
+		public int FollowingId {get; set;}
 		
 		public IReflectorMetadata GetAccesor()
 		{
 			return __accesor;
 		}
-		
-		public static implicit operator DeleteCustomerRequest(Guid id)
-		{
-			return new DeleteCustomerRequest { Id = id };
-		}
 	}
 	
 	
-	public sealed class DeleteCustomerRequestAccesor : IReflectorMetadata
+	public sealed class AddFollowingRequestAccesor : IReflectorMetadata
 	{
 		public const int Id = 1;
+		public const int FollowingId = 2;
 		private readonly int[] _props = new []
 		{
-			Id
+			Id,FollowingId
 		};
 		
 		public int[] GetPropertyCodes() => _props;
@@ -36,6 +34,7 @@ namespace Service.Models
 		    return propertyCode switch
 		    {
 		       Id => "Id",
+		       FollowingId => "FollowingId",
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -46,6 +45,7 @@ namespace Service.Models
 		    return propertyName switch
 		    {
 		        "Id" => Id,
+		        "FollowingId" => FollowingId,
 		
 		        _ => -1,
 		    };
@@ -55,7 +55,8 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		        Id => typeof(Guid),
+		        Id => typeof(int),
+		        FollowingId => typeof(int),
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -63,10 +64,11 @@ namespace Service.Models
 		       
 		public object GetValue(object target, int propertyCode)
 		{
-		    DeleteCustomerRequest obj = (DeleteCustomerRequest)target;
+		    AddFollowingRequest obj = (AddFollowingRequest)target;
 		    return propertyCode switch
 		    {
 		        Id => obj.Id,
+		        FollowingId => obj.FollowingId,
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -74,10 +76,11 @@ namespace Service.Models
 		
 		public void SetValue(object target, int propertyCode, object value)
 		{
-		    DeleteCustomerRequest obj = (DeleteCustomerRequest)target;
+		    AddFollowingRequest obj = (AddFollowingRequest)target;
 		    switch (propertyCode)
 		    {
-		        case Id:  obj.Id = (Guid)value;break;
+		        case Id:  obj.Id = (int)value;break;
+		        case FollowingId:  obj.FollowingId = (int)value;break;
 		
 		        default: throw new InvalidOperationException("property code not supported");
 		    }

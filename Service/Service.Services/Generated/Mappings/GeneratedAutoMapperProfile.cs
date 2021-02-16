@@ -11,20 +11,14 @@ namespace Service.Services
         public GeneratedAutoMapperProfile()
         {
            
-           CreateMap<Customer, CustomerDto>();
-           CreateMap<CustomerDto,Customer>();
+           CreateMap<Address, AddressDto>();
+           CreateMap<AddressDto,Address>();
            
-           CreateMap<CustomerProfile, CustomerProfileDto>();
-           CreateMap<CustomerProfileDto,CustomerProfile>();
+           CreateMap<User, UserDto>();
+           CreateMap<UserDto,User>();
            
-           CreateMap<Order, OrderDto>();
-           CreateMap<OrderDto,Order>();
-           
-           CreateMap<OrderState, OrderStateDto>();
-           CreateMap<OrderStateDto,OrderState>();
-           
-           CreateMap<OrderItem, OrderItemDto>();
-           CreateMap<OrderItemDto,OrderItem>();
+           CreateMap<UserFollowings, UserFollowingsDto>();
+           CreateMap<UserFollowingsDto,UserFollowings>();
         
         }
     }

@@ -1,23 +1,14 @@
 import { 
   GetAllRequest,
-  GetAllCustomerResponse,
-  GetCustomerRequest,
-  CustomerDto,
-  CreateCustomerRequest,
-  UpdateCustomerRequest,
-  DeleteCustomerRequest,
-  GetAllOrderResponse,
-  GetOrderRequest,
-  OrderDto,
-  CreateOrderRequest,
-  UpdateOrderRequest,
-  DeleteOrderRequest,
-  GetAllOrderStateResponse,
-  GetOrderStateRequest,
-  OrderStateDto,
-  CreateOrderStateRequest,
-  UpdateOrderStateRequest,
-  DeleteOrderStateRequest,
+  GetAllUserResponse,
+  GetUserRequest,
+  UserDto,
+  CreateUserRequest,
+  UpdateUserRequest,
+  DeleteUserRequest,
+  GetUserFollowingRequest,
+  AddFollowingRequest,
+  UnFollowingRequest,
  } from './models';
 
 export type Fetch = (input: RequestInfo, init?: RequestInit)=> Promise<Response>;
@@ -113,123 +104,66 @@ class BaseServiceService {
 }
 
 
-export class CustomerService extends BaseServiceService {  
+export class UserService extends BaseServiceService {  
 
     constructor(fetch:Fetch, options:ServiceOptions){
         super(fetch, options);        
     }
     
-    getAll(request:GetAllRequest) : Promise<GetAllCustomerResponse> {
+    getFollowing(request:GetUserFollowingRequest) : Promise<GetAllUserResponse> {
     	let options:RequestInit = { method: 'GET', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/Customer`+this.getQueryString(request);
+    	let endpoint = this._options.baseUrl+`/api/User/${request.id}/following`+this.getQueryString({ filter: request.filter,sort: request.sort,skip: request.skip,take: request.take});
     	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
     }
     
-    get(request:GetCustomerRequest) : Promise<CustomerDto> {
+    getFollowed(request:GetUserFollowingRequest) : Promise<GetAllUserResponse> {
     	let options:RequestInit = { method: 'GET', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/Customer/${request.id}`;
+    	let endpoint = this._options.baseUrl+`/api/User/${request.id}/followed`+this.getQueryString({ filter: request.filter,sort: request.sort,skip: request.skip,take: request.take});
     	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
     }
     
-    create(request:CreateCustomerRequest) : Promise<CustomerDto> {
+    addFollowing(request:AddFollowingRequest) : Promise<UserDto> {
     	let options:RequestInit = { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }};
     	options.body = JSON.stringify(request);
-    	let endpoint = this._options.baseUrl+`/api/Customer`;
+    	let endpoint = this._options.baseUrl+`/api/User/${request.id}/following`;
     	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
     }
     
-    update(request:UpdateCustomerRequest) : Promise<CustomerDto> {
-    	let options:RequestInit = { method: 'PUT', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }};
-    	options.body = JSON.stringify(request);
-    	let endpoint = this._options.baseUrl+`/api/Customer/${request.id}`;
-    	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
-    }
-    
-    delete(request:DeleteCustomerRequest) : Promise<ErrorInfo|void> {
+    removeFollowing(request:UnFollowingRequest) : Promise<ErrorInfo|void> {
     	let options:RequestInit = { method: 'DELETE', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/Customer/${request.id}`;
+    	let endpoint = this._options.baseUrl+`/api/User/${request.id}/following/${request.followingId}`;
     	return this._fetch(endpoint, options).then((response:Response) => this.ensureSuccess(response));
     }
-
-}
-
-
-export class OrderService extends BaseServiceService {  
-
-    constructor(fetch:Fetch, options:ServiceOptions){
-        super(fetch, options);        
-    }
     
-    getAll(request:GetAllRequest) : Promise<GetAllOrderResponse> {
+    getAll(request:GetAllRequest) : Promise<GetAllUserResponse> {
     	let options:RequestInit = { method: 'GET', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/Order`+this.getQueryString(request);
+    	let endpoint = this._options.baseUrl+`/api/User`+this.getQueryString(request);
     	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
     }
     
-    get(request:GetOrderRequest) : Promise<OrderDto> {
+    get(request:GetUserRequest) : Promise<UserDto> {
     	let options:RequestInit = { method: 'GET', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/Order/${request.id}`;
+    	let endpoint = this._options.baseUrl+`/api/User/${request.id}`;
     	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
     }
     
-    create(request:CreateOrderRequest) : Promise<OrderDto> {
+    create(request:CreateUserRequest) : Promise<UserDto> {
     	let options:RequestInit = { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }};
     	options.body = JSON.stringify(request);
-    	let endpoint = this._options.baseUrl+`/api/Order`;
+    	let endpoint = this._options.baseUrl+`/api/User`;
     	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
     }
     
-    update(request:UpdateOrderRequest) : Promise<OrderDto> {
+    update(request:UpdateUserRequest) : Promise<UserDto> {
     	let options:RequestInit = { method: 'PUT', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }};
     	options.body = JSON.stringify(request);
-    	let endpoint = this._options.baseUrl+`/api/Order/${request.id}`;
+    	let endpoint = this._options.baseUrl+`/api/User/${request.id}`;
     	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
     }
     
-    delete(request:DeleteOrderRequest) : Promise<ErrorInfo|void> {
+    delete(request:DeleteUserRequest) : Promise<ErrorInfo|void> {
     	let options:RequestInit = { method: 'DELETE', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/Order/${request.id}`;
-    	return this._fetch(endpoint, options).then((response:Response) => this.ensureSuccess(response));
-    }
-
-}
-
-
-export class OrderStateService extends BaseServiceService {  
-
-    constructor(fetch:Fetch, options:ServiceOptions){
-        super(fetch, options);        
-    }
-    
-    getAll(request:GetAllRequest) : Promise<GetAllOrderStateResponse> {
-    	let options:RequestInit = { method: 'GET', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/OrderState`+this.getQueryString(request);
-    	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
-    }
-    
-    get(request:GetOrderStateRequest) : Promise<OrderStateDto> {
-    	let options:RequestInit = { method: 'GET', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/OrderState/${request.id}`;
-    	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
-    }
-    
-    create(request:CreateOrderStateRequest) : Promise<OrderStateDto> {
-    	let options:RequestInit = { method: 'POST', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }};
-    	options.body = JSON.stringify(request);
-    	let endpoint = this._options.baseUrl+`/api/OrderState`;
-    	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
-    }
-    
-    update(request:UpdateOrderStateRequest) : Promise<OrderStateDto> {
-    	let options:RequestInit = { method: 'PUT', headers: { Accept: 'application/json', 'Content-Type': 'application/json' }};
-    	options.body = JSON.stringify(request);
-    	let endpoint = this._options.baseUrl+`/api/OrderState/${request.id}`;
-    	return this._fetch(endpoint, options).then((response:Response) => this.getObject(response));
-    }
-    
-    delete(request:DeleteOrderStateRequest) : Promise<ErrorInfo|void> {
-    	let options:RequestInit = { method: 'DELETE', headers: { Accept: 'application/json' }};
-    	let endpoint = this._options.baseUrl+`/api/OrderState/${request.id}`;
+    	let endpoint = this._options.baseUrl+`/api/User/${request.id}`;
     	return this._fetch(endpoint, options).then((response:Response) => this.ensureSuccess(response));
     }
 

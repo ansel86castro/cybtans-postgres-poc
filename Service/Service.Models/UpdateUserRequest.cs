@@ -3,13 +3,13 @@ using Cybtans.Serialization;
 
 namespace Service.Models
 {
-	public partial class UpdateOrderRequest : IReflectorMetadataProvider
+	public partial class UpdateUserRequest : IReflectorMetadataProvider
 	{
-		private static readonly UpdateOrderRequestAccesor __accesor = new UpdateOrderRequestAccesor();
+		private static readonly UpdateUserRequestAccesor __accesor = new UpdateUserRequestAccesor();
 		
-		public Guid Id {get; set;}
+		public int Id {get; set;}
 		
-		public OrderDto Value {get; set;}
+		public UserDto Value {get; set;}
 		
 		public IReflectorMetadata GetAccesor()
 		{
@@ -18,7 +18,7 @@ namespace Service.Models
 	}
 	
 	
-	public sealed class UpdateOrderRequestAccesor : IReflectorMetadata
+	public sealed class UpdateUserRequestAccesor : IReflectorMetadata
 	{
 		public const int Id = 1;
 		public const int Value = 2;
@@ -55,8 +55,8 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		        Id => typeof(Guid),
-		        Value => typeof(OrderDto),
+		        Id => typeof(int),
+		        Value => typeof(UserDto),
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -64,7 +64,7 @@ namespace Service.Models
 		       
 		public object GetValue(object target, int propertyCode)
 		{
-		    UpdateOrderRequest obj = (UpdateOrderRequest)target;
+		    UpdateUserRequest obj = (UpdateUserRequest)target;
 		    return propertyCode switch
 		    {
 		        Id => obj.Id,
@@ -76,11 +76,11 @@ namespace Service.Models
 		
 		public void SetValue(object target, int propertyCode, object value)
 		{
-		    UpdateOrderRequest obj = (UpdateOrderRequest)target;
+		    UpdateUserRequest obj = (UpdateUserRequest)target;
 		    switch (propertyCode)
 		    {
-		        case Id:  obj.Id = (Guid)value;break;
-		        case Value:  obj.Value = (OrderDto)value;break;
+		        case Id:  obj.Id = (int)value;break;
+		        case Value:  obj.Value = (UserDto)value;break;
 		
 		        default: throw new InvalidOperationException("property code not supported");
 		    }

@@ -35,4 +35,9 @@
   	<ProjectReference Include="../Service.Domain.EntityFramework/Service.Domain.EntityFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Generated\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

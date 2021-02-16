@@ -3,3 +3,51 @@ syntax = "proto3";
 import "Domain.proto";
 
 package Service;
+
+message UserDto{
+	map<string, string> settings = 1;
+}
+
+
+message GetUserFollowingRequest {
+	int32 id = 1;
+	string filter = 2 [optional = true];
+	string sort = 3 [optional = true];
+	int32 skip = 4 [optional = true];
+	int32 take = 5 [optional = true];
+}
+
+message AddFollowingRequest{
+	int32 id = 1;
+	int32 followingId = 2;
+}
+
+
+message UnFollowingRequest{
+	int32 id = 1;
+	int32 followingId = 2;
+}
+
+
+service UserService {
+
+ 	rpc GetFollowing(GetUserFollowingRequest) returns (GetAllUserResponse){		
+		option method = "GET";
+		option template  = "{id}/following";
+	};
+
+	rpc GetFollowed(GetUserFollowingRequest) returns (GetAllUserResponse){		
+		option method = "GET";
+		option template  = "{id}/followed";
+	};
+
+	rpc AddFollowing(AddFollowingRequest) returns (UserDto){		
+		option method = "POST";
+		option template  = "{id}/following";
+	};
+
+	rpc RemoveFollowing(UnFollowingRequest) returns (void){		
+		option method = "DELETE";
+		option template  = "{id}/following/{followingId}";
+	};
+}

@@ -3,30 +3,30 @@ using Cybtans.Serialization;
 
 namespace Service.Models
 {
-	public partial class CreateOrderStateRequest : IReflectorMetadataProvider
+	public partial class GetUserRequest : IReflectorMetadataProvider
 	{
-		private static readonly CreateOrderStateRequestAccesor __accesor = new CreateOrderStateRequestAccesor();
+		private static readonly GetUserRequestAccesor __accesor = new GetUserRequestAccesor();
 		
-		public OrderStateDto Value {get; set;}
+		public int Id {get; set;}
 		
 		public IReflectorMetadata GetAccesor()
 		{
 			return __accesor;
 		}
 		
-		public static implicit operator CreateOrderStateRequest(OrderStateDto value)
+		public static implicit operator GetUserRequest(int id)
 		{
-			return new CreateOrderStateRequest { Value = value };
+			return new GetUserRequest { Id = id };
 		}
 	}
 	
 	
-	public sealed class CreateOrderStateRequestAccesor : IReflectorMetadata
+	public sealed class GetUserRequestAccesor : IReflectorMetadata
 	{
-		public const int Value = 1;
+		public const int Id = 1;
 		private readonly int[] _props = new []
 		{
-			Value
+			Id
 		};
 		
 		public int[] GetPropertyCodes() => _props;
@@ -35,7 +35,7 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		       Value => "Value",
+		       Id => "Id",
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -45,7 +45,7 @@ namespace Service.Models
 		{
 		    return propertyName switch
 		    {
-		        "Value" => Value,
+		        "Id" => Id,
 		
 		        _ => -1,
 		    };
@@ -55,7 +55,7 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		        Value => typeof(OrderStateDto),
+		        Id => typeof(int),
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -63,10 +63,10 @@ namespace Service.Models
 		       
 		public object GetValue(object target, int propertyCode)
 		{
-		    CreateOrderStateRequest obj = (CreateOrderStateRequest)target;
+		    GetUserRequest obj = (GetUserRequest)target;
 		    return propertyCode switch
 		    {
-		        Value => obj.Value,
+		        Id => obj.Id,
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -74,10 +74,10 @@ namespace Service.Models
 		
 		public void SetValue(object target, int propertyCode, object value)
 		{
-		    CreateOrderStateRequest obj = (CreateOrderStateRequest)target;
+		    GetUserRequest obj = (GetUserRequest)target;
 		    switch (propertyCode)
 		    {
-		        case Value:  obj.Value = (OrderStateDto)value;break;
+		        case Id:  obj.Id = (int)value;break;
 		
 		        default: throw new InvalidOperationException("property code not supported");
 		    }

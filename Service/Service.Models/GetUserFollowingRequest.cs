@@ -3,30 +3,37 @@ using Cybtans.Serialization;
 
 namespace Service.Models
 {
-	public partial class GetOrderStateRequest : IReflectorMetadataProvider
+	public partial class GetUserFollowingRequest : IReflectorMetadataProvider
 	{
-		private static readonly GetOrderStateRequestAccesor __accesor = new GetOrderStateRequestAccesor();
+		private static readonly GetUserFollowingRequestAccesor __accesor = new GetUserFollowingRequestAccesor();
 		
 		public int Id {get; set;}
+		
+		public string Filter {get; set;}
+		
+		public string Sort {get; set;}
+		
+		public int? Skip {get; set;}
+		
+		public int? Take {get; set;}
 		
 		public IReflectorMetadata GetAccesor()
 		{
 			return __accesor;
 		}
-		
-		public static implicit operator GetOrderStateRequest(int id)
-		{
-			return new GetOrderStateRequest { Id = id };
-		}
 	}
 	
 	
-	public sealed class GetOrderStateRequestAccesor : IReflectorMetadata
+	public sealed class GetUserFollowingRequestAccesor : IReflectorMetadata
 	{
 		public const int Id = 1;
+		public const int Filter = 2;
+		public const int Sort = 3;
+		public const int Skip = 4;
+		public const int Take = 5;
 		private readonly int[] _props = new []
 		{
-			Id
+			Id,Filter,Sort,Skip,Take
 		};
 		
 		public int[] GetPropertyCodes() => _props;
@@ -36,6 +43,10 @@ namespace Service.Models
 		    return propertyCode switch
 		    {
 		       Id => "Id",
+		       Filter => "Filter",
+		       Sort => "Sort",
+		       Skip => "Skip",
+		       Take => "Take",
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -46,6 +57,10 @@ namespace Service.Models
 		    return propertyName switch
 		    {
 		        "Id" => Id,
+		        "Filter" => Filter,
+		        "Sort" => Sort,
+		        "Skip" => Skip,
+		        "Take" => Take,
 		
 		        _ => -1,
 		    };
@@ -56,6 +71,10 @@ namespace Service.Models
 		    return propertyCode switch
 		    {
 		        Id => typeof(int),
+		        Filter => typeof(string),
+		        Sort => typeof(string),
+		        Skip => typeof(int?),
+		        Take => typeof(int?),
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -63,10 +82,14 @@ namespace Service.Models
 		       
 		public object GetValue(object target, int propertyCode)
 		{
-		    GetOrderStateRequest obj = (GetOrderStateRequest)target;
+		    GetUserFollowingRequest obj = (GetUserFollowingRequest)target;
 		    return propertyCode switch
 		    {
 		        Id => obj.Id,
+		        Filter => obj.Filter,
+		        Sort => obj.Sort,
+		        Skip => obj.Skip,
+		        Take => obj.Take,
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -74,10 +97,14 @@ namespace Service.Models
 		
 		public void SetValue(object target, int propertyCode, object value)
 		{
-		    GetOrderStateRequest obj = (GetOrderStateRequest)target;
+		    GetUserFollowingRequest obj = (GetUserFollowingRequest)target;
 		    switch (propertyCode)
 		    {
 		        case Id:  obj.Id = (int)value;break;
+		        case Filter:  obj.Filter = (string)value;break;
+		        case Sort:  obj.Sort = (string)value;break;
+		        case Skip:  obj.Skip = (int?)value;break;
+		        case Take:  obj.Take = (int?)value;break;
 		
 		        default: throw new InvalidOperationException("property code not supported");
 		    }

@@ -3,11 +3,9 @@ using Cybtans.Serialization;
 
 namespace Service.Models
 {
-	public partial class OrderStateDto : IReflectorMetadataProvider
+	public partial class DeleteUserRequest : IReflectorMetadataProvider
 	{
-		private static readonly OrderStateDtoAccesor __accesor = new OrderStateDtoAccesor();
-		
-		public string Name {get; set;}
+		private static readonly DeleteUserRequestAccesor __accesor = new DeleteUserRequestAccesor();
 		
 		public int Id {get; set;}
 		
@@ -15,16 +13,20 @@ namespace Service.Models
 		{
 			return __accesor;
 		}
+		
+		public static implicit operator DeleteUserRequest(int id)
+		{
+			return new DeleteUserRequest { Id = id };
+		}
 	}
 	
 	
-	public sealed class OrderStateDtoAccesor : IReflectorMetadata
+	public sealed class DeleteUserRequestAccesor : IReflectorMetadata
 	{
-		public const int Name = 1;
-		public const int Id = 2;
+		public const int Id = 1;
 		private readonly int[] _props = new []
 		{
-			Name,Id
+			Id
 		};
 		
 		public int[] GetPropertyCodes() => _props;
@@ -33,7 +35,6 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		       Name => "Name",
 		       Id => "Id",
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
@@ -44,7 +45,6 @@ namespace Service.Models
 		{
 		    return propertyName switch
 		    {
-		        "Name" => Name,
 		        "Id" => Id,
 		
 		        _ => -1,
@@ -55,7 +55,6 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		        Name => typeof(string),
 		        Id => typeof(int),
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
@@ -64,10 +63,9 @@ namespace Service.Models
 		       
 		public object GetValue(object target, int propertyCode)
 		{
-		    OrderStateDto obj = (OrderStateDto)target;
+		    DeleteUserRequest obj = (DeleteUserRequest)target;
 		    return propertyCode switch
 		    {
-		        Name => obj.Name,
 		        Id => obj.Id,
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
@@ -76,10 +74,9 @@ namespace Service.Models
 		
 		public void SetValue(object target, int propertyCode, object value)
 		{
-		    OrderStateDto obj = (OrderStateDto)target;
+		    DeleteUserRequest obj = (DeleteUserRequest)target;
 		    switch (propertyCode)
 		    {
-		        case Name:  obj.Name = (string)value;break;
 		        case Id:  obj.Id = (int)value;break;
 		
 		        default: throw new InvalidOperationException("property code not supported");

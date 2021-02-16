@@ -3,24 +3,15 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpEvent, HttpResponse } from '@angular/common/http';
 import { 
   GetAllRequest,
-  GetAllCustomerResponse,
-  GetCustomerRequest,
-  CustomerDto,
-  CreateCustomerRequest,
-  UpdateCustomerRequest,
-  DeleteCustomerRequest,
-  GetAllOrderResponse,
-  GetOrderRequest,
-  OrderDto,
-  CreateOrderRequest,
-  UpdateOrderRequest,
-  DeleteOrderRequest,
-  GetAllOrderStateResponse,
-  GetOrderStateRequest,
-  OrderStateDto,
-  CreateOrderStateRequest,
-  UpdateOrderStateRequest,
-  DeleteOrderStateRequest,
+  GetAllUserResponse,
+  GetUserRequest,
+  UserDto,
+  CreateUserRequest,
+  UpdateUserRequest,
+  DeleteUserRequest,
+  GetUserFollowingRequest,
+  AddFollowingRequest,
+  UnFollowingRequest,
  } from './models';
 
 function getQueryString(data:any): string|undefined {
@@ -77,116 +68,60 @@ function getFormData(data:any): FormData {
 @Injectable({
   providedIn: 'root',
 })
-export class CustomerService {
+export class UserService {
 
     constructor(private http: HttpClient) {}
     
-    getAll(request: GetAllRequest): Observable<GetAllCustomerResponse> {
-      return this.http.get<GetAllCustomerResponse>(`/api/Customer${ getQueryString(request) }`, {
+    getFollowing(request: GetUserFollowingRequest): Observable<GetAllUserResponse> {
+      return this.http.get<GetAllUserResponse>(`/api/User/${request.id}/following${ getQueryString({ filter: request.filter, sort: request.sort, skip: request.skip, take: request.take }) }`, {
           headers: new HttpHeaders({ Accept: 'application/json' }),
       });
     }
     
-    get(request: GetCustomerRequest): Observable<CustomerDto> {
-      return this.http.get<CustomerDto>(`/api/Customer/${request.id}`, {
+    getFollowed(request: GetUserFollowingRequest): Observable<GetAllUserResponse> {
+      return this.http.get<GetAllUserResponse>(`/api/User/${request.id}/followed${ getQueryString({ filter: request.filter, sort: request.sort, skip: request.skip, take: request.take }) }`, {
           headers: new HttpHeaders({ Accept: 'application/json' }),
       });
     }
     
-    create(request: CreateCustomerRequest): Observable<CustomerDto> {
-      return this.http.post<CustomerDto>(`/api/Customer`, request, {
+    addFollowing(request: AddFollowingRequest): Observable<UserDto> {
+      return this.http.post<UserDto>(`/api/User/${request.id}/following`, request, {
           headers: new HttpHeaders({ Accept: 'application/json', 'Content-Type': 'application/json' }),
       });
     }
     
-    update(request: UpdateCustomerRequest): Observable<CustomerDto> {
-      return this.http.put<CustomerDto>(`/api/Customer/${request.id}`, request, {
+    removeFollowing(request: UnFollowingRequest): Observable<{}> {
+      return this.http.delete<{}>(`/api/User/${request.id}/following/${request.followingId}`, {
+          headers: new HttpHeaders({ Accept: 'application/json' }),
+      });
+    }
+    
+    getAll(request: GetAllRequest): Observable<GetAllUserResponse> {
+      return this.http.get<GetAllUserResponse>(`/api/User${ getQueryString(request) }`, {
+          headers: new HttpHeaders({ Accept: 'application/json' }),
+      });
+    }
+    
+    get(request: GetUserRequest): Observable<UserDto> {
+      return this.http.get<UserDto>(`/api/User/${request.id}`, {
+          headers: new HttpHeaders({ Accept: 'application/json' }),
+      });
+    }
+    
+    create(request: CreateUserRequest): Observable<UserDto> {
+      return this.http.post<UserDto>(`/api/User`, request, {
           headers: new HttpHeaders({ Accept: 'application/json', 'Content-Type': 'application/json' }),
       });
     }
     
-    delete(request: DeleteCustomerRequest): Observable<{}> {
-      return this.http.delete<{}>(`/api/Customer/${request.id}`, {
-          headers: new HttpHeaders({ Accept: 'application/json' }),
-      });
-    }
-
-}
-
-
-@Injectable({
-  providedIn: 'root',
-})
-export class OrderService {
-
-    constructor(private http: HttpClient) {}
-    
-    getAll(request: GetAllRequest): Observable<GetAllOrderResponse> {
-      return this.http.get<GetAllOrderResponse>(`/api/Order${ getQueryString(request) }`, {
-          headers: new HttpHeaders({ Accept: 'application/json' }),
-      });
-    }
-    
-    get(request: GetOrderRequest): Observable<OrderDto> {
-      return this.http.get<OrderDto>(`/api/Order/${request.id}`, {
-          headers: new HttpHeaders({ Accept: 'application/json' }),
-      });
-    }
-    
-    create(request: CreateOrderRequest): Observable<OrderDto> {
-      return this.http.post<OrderDto>(`/api/Order`, request, {
+    update(request: UpdateUserRequest): Observable<UserDto> {
+      return this.http.put<UserDto>(`/api/User/${request.id}`, request, {
           headers: new HttpHeaders({ Accept: 'application/json', 'Content-Type': 'application/json' }),
       });
     }
     
-    update(request: UpdateOrderRequest): Observable<OrderDto> {
-      return this.http.put<OrderDto>(`/api/Order/${request.id}`, request, {
-          headers: new HttpHeaders({ Accept: 'application/json', 'Content-Type': 'application/json' }),
-      });
-    }
-    
-    delete(request: DeleteOrderRequest): Observable<{}> {
-      return this.http.delete<{}>(`/api/Order/${request.id}`, {
-          headers: new HttpHeaders({ Accept: 'application/json' }),
-      });
-    }
-
-}
-
-
-@Injectable({
-  providedIn: 'root',
-})
-export class OrderStateService {
-
-    constructor(private http: HttpClient) {}
-    
-    getAll(request: GetAllRequest): Observable<GetAllOrderStateResponse> {
-      return this.http.get<GetAllOrderStateResponse>(`/api/OrderState${ getQueryString(request) }`, {
-          headers: new HttpHeaders({ Accept: 'application/json' }),
-      });
-    }
-    
-    get(request: GetOrderStateRequest): Observable<OrderStateDto> {
-      return this.http.get<OrderStateDto>(`/api/OrderState/${request.id}`, {
-          headers: new HttpHeaders({ Accept: 'application/json' }),
-      });
-    }
-    
-    create(request: CreateOrderStateRequest): Observable<OrderStateDto> {
-      return this.http.post<OrderStateDto>(`/api/OrderState`, request, {
-          headers: new HttpHeaders({ Accept: 'application/json', 'Content-Type': 'application/json' }),
-      });
-    }
-    
-    update(request: UpdateOrderStateRequest): Observable<OrderStateDto> {
-      return this.http.put<OrderStateDto>(`/api/OrderState/${request.id}`, request, {
-          headers: new HttpHeaders({ Accept: 'application/json', 'Content-Type': 'application/json' }),
-      });
-    }
-    
-    delete(request: DeleteOrderStateRequest): Observable<{}> {
-      return this.http.delete<{}>(`/api/OrderState/${request.id}`, {
+    delete(request: DeleteUserRequest): Observable<{}> {
+      return this.http.delete<{}>(`/api/User/${request.id}`, {
           headers: new HttpHeaders({ Accept: 'application/json' }),
       });
     }

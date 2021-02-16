@@ -3,30 +3,28 @@ using Cybtans.Serialization;
 
 namespace Service.Models
 {
-	public partial class CreateCustomerRequest : IReflectorMetadataProvider
+	public partial class UnFollowingRequest : IReflectorMetadataProvider
 	{
-		private static readonly CreateCustomerRequestAccesor __accesor = new CreateCustomerRequestAccesor();
+		private static readonly UnFollowingRequestAccesor __accesor = new UnFollowingRequestAccesor();
 		
-		public CustomerDto Value {get; set;}
+		public int Id {get; set;}
+		
+		public int FollowingId {get; set;}
 		
 		public IReflectorMetadata GetAccesor()
 		{
 			return __accesor;
 		}
-		
-		public static implicit operator CreateCustomerRequest(CustomerDto value)
-		{
-			return new CreateCustomerRequest { Value = value };
-		}
 	}
 	
 	
-	public sealed class CreateCustomerRequestAccesor : IReflectorMetadata
+	public sealed class UnFollowingRequestAccesor : IReflectorMetadata
 	{
-		public const int Value = 1;
+		public const int Id = 1;
+		public const int FollowingId = 2;
 		private readonly int[] _props = new []
 		{
-			Value
+			Id,FollowingId
 		};
 		
 		public int[] GetPropertyCodes() => _props;
@@ -35,7 +33,8 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		       Value => "Value",
+		       Id => "Id",
+		       FollowingId => "FollowingId",
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -45,7 +44,8 @@ namespace Service.Models
 		{
 		    return propertyName switch
 		    {
-		        "Value" => Value,
+		        "Id" => Id,
+		        "FollowingId" => FollowingId,
 		
 		        _ => -1,
 		    };
@@ -55,7 +55,8 @@ namespace Service.Models
 		{
 		    return propertyCode switch
 		    {
-		        Value => typeof(CustomerDto),
+		        Id => typeof(int),
+		        FollowingId => typeof(int),
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -63,10 +64,11 @@ namespace Service.Models
 		       
 		public object GetValue(object target, int propertyCode)
 		{
-		    CreateCustomerRequest obj = (CreateCustomerRequest)target;
+		    UnFollowingRequest obj = (UnFollowingRequest)target;
 		    return propertyCode switch
 		    {
-		        Value => obj.Value,
+		        Id => obj.Id,
+		        FollowingId => obj.FollowingId,
 		
 		        _ => throw new InvalidOperationException("property code not supported"),
 		    };
@@ -74,10 +76,11 @@ namespace Service.Models
 		
 		public void SetValue(object target, int propertyCode, object value)
 		{
-		    CreateCustomerRequest obj = (CreateCustomerRequest)target;
+		    UnFollowingRequest obj = (UnFollowingRequest)target;
 		    switch (propertyCode)
 		    {
-		        case Value:  obj.Value = (CustomerDto)value;break;
+		        case Id:  obj.Id = (int)value;break;
+		        case FollowingId:  obj.FollowingId = (int)value;break;
 		
 		        default: throw new InvalidOperationException("property code not supported");
 		    }
